@@ -13,15 +13,19 @@
             </tr>
         </thead>
         <tbody>
+            @{
+                var rowNumber = 1;
+            }
             @foreach (var spaceships in Model)
             {
                 <tr>
-                    <td>Nr</td>
+                    <td>@rowNumber</td>
                     <td>@spaceships.Name</td>
                     <td>@spaceships.TypeName</td>
                     <td>@spaceships.BuiltDate</td>
                     <td>@spaceships.Crew</td>
                 </tr>
+                rowNumber++;
             }
         </tbody>
     </table>
