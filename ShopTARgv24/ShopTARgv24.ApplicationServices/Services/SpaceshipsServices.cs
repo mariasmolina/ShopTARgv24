@@ -3,22 +3,22 @@ using ShopTARgv24.Core.Domain;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShopTARgv24.ApplicationServices.Services
 {
     public class SpaceshipsServices : ISpaceshipsServices
     {
         private readonly ShopTARgv24Context _context;
-        
+        private readonly IFileServices _fileServices;
+
         public SpaceshipsServices
-            (ShopTARgv24Context context)
+            (
+                ShopTARgv24Context context,
+                IFileServices fileServices
+            )
         {
             _context = context;
+            _fileServices = fileServices;
         }
 
         public async Task<Spaceship> Create(SpaceshipDto dto)
@@ -35,6 +35,7 @@ namespace ShopTARgv24.ApplicationServices.Services
             spaceship.InnerVolume = dto.InnerVolume;
             spaceship.CreatedAt = DateTime.Now;
             spaceship.ModifiedAt = DateTime.Now;
+            _fileServices.FilesToApi(dto, spaceship);
 
             await _context.Spaceships.AddAsync(spaceship);
             await _context.SaveChangesAsync();
