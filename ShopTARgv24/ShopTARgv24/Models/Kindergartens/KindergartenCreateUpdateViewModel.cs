@@ -1,6 +1,6 @@
 ﻿namespace ShopTARgv24.Models.Kindergartens
 {
-    public class KindergartenIndexViewModel
+    public class KindergartenCreateUpdateViewModel
     {
         public Guid? Id { get; set; }
         public string? GroupName { get; set; }
@@ -9,5 +9,6 @@
         public string? TeacherName { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
     }
 }
