@@ -5,6 +5,7 @@ using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
 using ShopTARgv24.Models.Kindergartens;
 using ShopTARgv24.Models.Spaceships;
+using System.Security.Cryptography.Xml;
 
 namespace ShopTARgv24.Controllers
 {
@@ -151,6 +152,30 @@ namespace ShopTARgv24.Controllers
                 return RedirectToAction(nameof(Index));
 
             return NotFound();
+        }
+
+        // Details
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var kindergarten = await _kindergartenServices.DetailAsync(id);
+
+            if (kindergarten == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new KindergartenDetailsViewModel();
+
+            vm.Id = kindergarten.Id;
+            vm.GroupName = kindergarten.GroupName;
+            vm.ChildrenCount = kindergarten.ChildrenCount;
+            vm.KindergartenName = kindergarten.KindergartenName;
+            vm.TeacherName = kindergarten.TeacherName;
+            vm.CreatedAt = kindergarten.CreatedAt;
+            vm.UpdatedAt = kindergarten.UpdatedAt;
+
+            return View(vm);
         }
     }
 }

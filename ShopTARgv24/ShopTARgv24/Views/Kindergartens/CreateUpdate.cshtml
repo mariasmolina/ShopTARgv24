@@ -3,16 +3,18 @@
 <div class="container mt-5">
     <div class="col-lg-8 mx-auto">
         <div class="card shadow-lg border-0 rounded-3">
-            <div class="card-header bg-primary text-white text-center">
-                @if (Model.Id.HasValue)
-                {
-                        <h1>Update</h1>
-                }
-                else
-                {
+            @if (Model.Id.HasValue)
+            {
+                <div class="card-header bg-primary text-white text-center">
+                    <h1>Update</h1>
+                </div>
+            }
+            else
+            {
+                <div class="card-header bg-success text-white text-center">
                     <h1>Create</h1>
-                }
-            </div>
+                </div>
+            }
             <div class="card-body p-4">
                 <form method="post" enctype="multipart/form-data">
                     <input asp-for="Id" type="hidden" />
