@@ -1,4 +1,4 @@
-﻿namespace ShopTARgv24.Models.Kindergarten
+﻿namespace ShopTARgv24.Models.Kindergartens
 {
     public class KindergartenIndexViewModel
     {

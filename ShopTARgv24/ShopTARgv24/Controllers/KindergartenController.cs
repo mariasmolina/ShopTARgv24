@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopTARgv24.Data;
-using ShopTARgv24.Models.Kindergarten;
+using ShopTARgv24.Models.Kindergartens;
 
 namespace ShopTARgv24.Controllers
 {
@@ -24,8 +24,8 @@ namespace ShopTARgv24.Controllers
                     Id = x.Id,
                     GroupName = x.GroupName,
                     ChildrenCount = x.ChildrenCount,
-                    KindergartenName = x.KindergartenName,
                     TeacherName = x.TeacherName,
+                    KindergartenName = x.KindergartenName
                 });
 
             return View(result);
