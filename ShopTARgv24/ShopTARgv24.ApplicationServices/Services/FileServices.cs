@@ -5,6 +5,7 @@ using ShopTARgv24.Core.Domain;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ShopTARgv24.ApplicationServices.Services
 {
@@ -71,6 +72,24 @@ namespace ShopTARgv24.ApplicationServices.Services
             await _context.SaveChangesAsync();
 
             return imageId;
+        }
+
+        public async Task<List<FileToApi>> RemoveImagesFromApi(FileToApiDto[] dtos)
+        {
+            foreach (var dto in dtos)
+            {
+                var imageId = await _context.FileToApis.FirstOrDefaultAsync(x => x.Id == dto.Id);
+                var filePath = _webHost.ContentRootPath + "\\wwwroot\\multipleFileUpload\\" + imageId.ExistingFilePath;
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                _context.FileToApis.Remove(imageId);
+                await _context.SaveChangesAsync();
+            }
+            return null;
         }
     }
 }

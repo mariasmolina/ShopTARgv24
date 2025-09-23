@@ -126,21 +126,6 @@ namespace ShopTARgv24.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmation(Guid id)
         {
-            var images = await _context.FileToApis
-                .Where(x => x.SpaceshipId == id)
-                .ToArrayAsync();
-
-            foreach (var image in images)
-            {
-                var dto = new FileToApiDto
-                {
-                    Id = image.Id,
-                    ExistingFilePath = image.ExistingFilePath,
-                    SpaceshipId = image.SpaceshipId
-                };
-                await _fileServices.RemoveImageFromApi(dto);
-            }
-
             var spaceship = await _spaceshipsServices.Delete(id);
             if (spaceship != null)
                 return RedirectToAction(nameof(Index));
