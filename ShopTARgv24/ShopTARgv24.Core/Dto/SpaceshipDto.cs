@@ -12,7 +12,7 @@ namespace ShopTARgv24.Core.Dto
         public int? EnginePower { get; set; }
         public int? Passengers { get; set; }
         public int? InnerVolume { get; set; }
-        public List<IFormFile>? Files { get; set; }
+        public List<IFormFile> Files { get; set; }
         public IEnumerable<FileToApiDto> FileToApiDtos { get; set; }
             = new List<FileToApiDto>();
         public DateTime? CreatedAt { get; set; }

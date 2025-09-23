@@ -18,6 +18,7 @@ namespace ShopTARgv24.ApplicationServices.Services
             )
         {
             _context = context;
+            _webHost = webHost;
         }
         public void FilesToApi(SpaceshipDto dto, Spaceship spaceship)
         {
