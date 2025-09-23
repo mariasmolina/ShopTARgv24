@@ -30,6 +30,8 @@ namespace ShopTARgv24
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
             app.UseRouting();
 
