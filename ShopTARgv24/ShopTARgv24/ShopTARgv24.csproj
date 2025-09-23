@@ -31,12 +31,4 @@
     <Folder Include="wwwroot\multipleFileUpload\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\multipleFileUpload\142c21f6-6752-4b51-842d-ee2ff7defbe9_spaceship.jpg" />
-    <None Include="wwwroot\multipleFileUpload\223d46af-feb6-4346-bd1c-70cc56eba5fa_spaceship.jpg" />
-    <None Include="wwwroot\multipleFileUpload\34ee158a-4eca-4446-8d36-ea06a1f98063_spaceship.jpg" />
-    <None Include="wwwroot\multipleFileUpload\a7258db9-8ae5-428a-8789-e21711ceec41_spaceship.jpg" />
-    <None Include="wwwroot\multipleFileUpload\d95fe4ea-3692-47dc-9545-e580ef2586af_spaceship.jpg" />
-  </ItemGroup>
-
 </Project>

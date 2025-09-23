@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using ShopTARgv24.Core.Domain;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
@@ -53,6 +55,22 @@ namespace ShopTARgv24.ApplicationServices.Services
                     }
                 }
             }
+        }
+
+        public async Task<FileToApi> RemoveImageFromApi(FileToApiDto dto)
+        {
+            var imageId = await _context.FileToApis.FirstOrDefaultAsync(x => x.Id == dto.Id);
+            var filePath = _webHost.ContentRootPath + "\\wwwroot\\multipleFileUpload\\" + imageId.ExistingFilePath;
+
+            if(File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            _context.FileToApis.Remove(imageId);
+            await _context.SaveChangesAsync();
+
+            return imageId;
         }
     }
 }
