@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\multipleFileUpload\**" />
-    <Content Remove="wwwroot\multipleFileUpload\**" />
-    <EmbeddedResource Remove="wwwroot\multipleFileUpload\**" />
-    <None Remove="wwwroot\multipleFileUpload\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Views\Spaceships\Createcs.cs" />
   </ItemGroup>
 
@@ -32,6 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ShopTARgv24.ApplicationServices\ShopTARgv24.ApplicationServices.csproj" />
     <ProjectReference Include="..\ShopTARgv24.Data\ShopTARgv24.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\RealEstate\" />
   </ItemGroup>
 
 </Project>
