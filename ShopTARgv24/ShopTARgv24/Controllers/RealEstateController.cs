@@ -150,5 +150,29 @@ namespace ShopTARgv24.Controllers
 
             return NotFound();
         }
+
+        // Details
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var realestate = await _realestateServices.DetailAsync(id);
+
+            if (realestate == null)
+            {
+                return NotFound();
+            }
+
+            var vm = new RealEstateDetailsViewModel();
+
+            vm.Id = realestate.Id;
+            vm.Area = realestate.Area;
+            vm.Location = realestate.Location;
+            vm.RoomNumber = realestate.RoomNumber;
+            vm.BuildingType = realestate.BuildingType;
+            vm.CreatedAt = realestate.CreatedAt;
+            vm.ModifiedAt = realestate.ModifiedAt;
+
+            return View(vm);
+        }
     }
 }

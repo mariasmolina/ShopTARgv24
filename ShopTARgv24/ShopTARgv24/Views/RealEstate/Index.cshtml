@@ -31,6 +31,7 @@
                             <td>@realestate.RoomNumber</td>
                             <td>@realestate.BuildingType</td>
                             <td>
+                                <a asp-action="details" asp-controller="realestate" asp-route-id="@realestate.Id" class="btn btn-secondary m-1">Details</a>
                                 <a asp-action="update" asp-controller="realestate" asp-route-id="@realestate.Id" class="btn btn-primary m-1">Update</a>
                                 <a asp-action="delete" asp-controller="realestate" asp-route-id="@realestate.Id" class="btn btn-outline-danger m-1">Delete</a>
                             </td>
