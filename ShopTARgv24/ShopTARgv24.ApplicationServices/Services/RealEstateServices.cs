@@ -61,5 +61,15 @@ namespace ShopTARgv24.ApplicationServices.Services
             return domain;
         }
 
+        public async Task<RealEstate> Delete(Guid id)
+        {
+            var realestate = await _context.RealEstate
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            _context.RealEstate.Remove(realestate);
+            await _context.SaveChangesAsync();
+
+            return realestate;
+        }
     }
 }

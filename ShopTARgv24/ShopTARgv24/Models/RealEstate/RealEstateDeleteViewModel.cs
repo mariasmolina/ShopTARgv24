@@ -1,6 +1,6 @@
-﻿    namespace ShopTARgv24.Models.RealEstate
+﻿namespace ShopTARgv24.Models.RealEstate
 {
-    public class RealEstateCreateUpdateViewModel
+    public class RealEstateDeleteViewModel
     {
         public Guid? Id { get; set; }
         public double? Area { get; set; }
