@@ -1,0 +1,62 @@
+﻿@model ShopTARgv24.Models.RealEstate.RealEstateCreateUpdateViewModel
+
+<div class="container mt-5">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow-lg border-0 rounded-3">
+            @if (Model.Id.HasValue)
+            {
+                <div class="card-header bg-primary text-white text-center">
+                    <h1>Update</h1>
+                </div>
+            }
+            else
+            {
+                <div class="card-header bg-success text-white text-center">
+                    <h1>Create</h1>
+                </div>
+            }
+            <div class="card-body p-4">
+                <form method="post" enctype="multipart/form-data">
+                    <input asp-for="Id" type="hidden" />
+                    <input asp-for="CreatedAt" type="hidden" />
+                    <input asp-for="ModifiedAt" type="hidden" />
+
+                    <div class="form-group row m-3">
+                        <label asp-for="Area" class="col-sm-3 col-form-label">Area</label>
+                        <div class="col-sm-9">
+                            <input asp-for="Area" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-3">
+                        <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
+                        <div class="col-sm-9">
+                            <input asp-for="Location" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-3">
+                        <label asp-for="RoomNumber" class="col-sm-3 col-form-label">Room number</label>
+                        <div class="col-sm-9">
+                            <input asp-for="RoomNumber" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-3">
+                        <label asp-for="BuildingType" class="col-sm-3 col-form-label">Building type</label>
+                        <div class="col-sm-9">
+                            <input asp-for="BuildingType" class="form-control" />
+                        </div>
+                    </div>
+
+                    @if (Model.Id.HasValue)
+                    {
+                        <input asp-action="update" asp-controller="realestate" type="submit" class="btn btn-success m-2" value="Update" />
+                    }
+                    else
+                    {
+                        <input asp-action="create" asp-controller="realestate" type="submit" class="btn btn-success m-2" value="Create" />
+                    }
+                    <a asp-action="Index" asp-controller="realestate" class="btn btn-secondary m-2">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
