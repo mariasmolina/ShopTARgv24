@@ -1,4 +1,7 @@
-﻿    namespace ShopTARgv24.Models.RealEstate
+﻿using ShopTARgv24.Core.Domain;
+using ShopTARgv24.Core.Dto;
+
+namespace ShopTARgv24.Models.RealEstate
 {
     public class RealEstateCreateUpdateViewModel
     {
@@ -7,9 +10,9 @@
         public string? Location { get; set; }
         public int? RoomNumber { get; set; }
         public string? BuildingType { get; set; }
-        public List<IFormFile> Files { get; set; } = new();
-        public List<RealEstateImageViewModel> Image { get; set; }
-            = new List<RealEstateImageViewModel>();
+        public List<IFormFile> Files { get; set; }
+        public IEnumerable<FileToDatabaseDto> Image { get; set; }
+            = new List<FileToDatabaseDto>();
         public DateTime? CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
     }

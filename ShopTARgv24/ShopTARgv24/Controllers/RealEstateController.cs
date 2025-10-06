@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopTARgv24.ApplicationServices.Services;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
@@ -10,19 +11,19 @@ namespace ShopTARgv24.Controllers
     {
         private readonly ShopTARgv24Context _context;
         private readonly IRealEstateServices _realestateServices;
-        private readonly IFileToDatabaseServices _fileToDatabaseServices;
+        private readonly IFileServices _fileServices;
 
         public RealEstateController
             (
                 ShopTARgv24Context context,
-                IRealEstateServices realestateServices
-                IFileToDatabaseServices fileToDatabaseServices
+                IRealEstateServices realestateServices,
+                IFileServices fileServices
 
             )
         {
             _context = context;
             _realestateServices = realestateServices;
-            _fileToDatabaseServices = fileToDatabaseServices;
+            _fileServices = fileServices;
         }
         public IActionResult Index()
         {

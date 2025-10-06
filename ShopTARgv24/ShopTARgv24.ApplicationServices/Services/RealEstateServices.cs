@@ -9,31 +9,40 @@ namespace ShopTARgv24.ApplicationServices.Services
     public class RealEstateServices : IRealEstateServices
     {
         private readonly ShopTARgv24Context _context;
+        private readonly IFileServices _fileServices;
 
         public RealEstateServices
             (
-                ShopTARgv24Context context
+                ShopTARgv24Context context,
+                IFileServices fileServices
             )
         {
             _context = context;
+            _fileServices = fileServices;
         }
 
         public async Task<RealEstate> Create(RealEstateDto dto)
         {
-            RealEstate realestate = new RealEstate();
+            RealEstate domain = new RealEstate();
 
-            realestate.Id = Guid.NewGuid();
-            realestate.Area = dto.Area;
-            realestate.Location = dto.Location;
-            realestate.RoomNumber = dto.RoomNumber;
-            realestate.BuildingType = dto.BuildingType;
-            realestate.CreatedAt = DateTime.Now;
-            realestate.ModifiedAt = DateTime.Now;
+            domain.Id = Guid.NewGuid();
+            domain.Area = dto.Area;
+            domain.Location = dto.Location;
+            domain.RoomNumber = dto.RoomNumber;
+            domain.BuildingType = dto.BuildingType;
+            domain.CreatedAt = DateTime.Now;
+            domain.ModifiedAt = DateTime.Now;
 
-            await _context.RealEstate.AddAsync(realestate);
+            //peaks kontrollima, kas on faile või ei ole
+            if (dto.Files != null)
+            {
+                _fileServices.UploadFilesToDatabase(dto, domain);
+            }
+
+            await _context.RealEstate.AddAsync(domain);
             await _context.SaveChangesAsync();
 
-            return realestate;
+            return domain;
         }
 
         public async Task<RealEstate> DetailAsync(Guid id)
