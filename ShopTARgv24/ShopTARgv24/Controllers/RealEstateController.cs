@@ -10,16 +10,19 @@ namespace ShopTARgv24.Controllers
     {
         private readonly ShopTARgv24Context _context;
         private readonly IRealEstateServices _realestateServices;
+        private readonly IFileToDatabaseServices _fileToDatabaseServices;
 
         public RealEstateController
             (
                 ShopTARgv24Context context,
                 IRealEstateServices realestateServices
+                IFileToDatabaseServices fileToDatabaseServices
 
             )
         {
             _context = context;
             _realestateServices = realestateServices;
+            _fileToDatabaseServices = fileToDatabaseServices;
         }
         public IActionResult Index()
         {
@@ -57,7 +60,16 @@ namespace ShopTARgv24.Controllers
                 RoomNumber = vm.RoomNumber,
                 BuildingType = vm.BuildingType,
                 CreatedAt = vm.CreatedAt,
-                ModifiedAt = vm.ModifiedAt
+                ModifiedAt = vm.ModifiedAt,
+                Files = vm.Files,
+                Image = vm.Image
+                    .Select(x => new FileToDatabaseDto
+                    {
+                        Id = x.Id,
+                        ImageData = x.ImageData,
+                        ImageTitle = x.ImageTitle,
+                        RealEstateId = x.RealEstateId
+                    }).ToArray()
             };
             var result = await _realestateServices.Create(dto);
 
