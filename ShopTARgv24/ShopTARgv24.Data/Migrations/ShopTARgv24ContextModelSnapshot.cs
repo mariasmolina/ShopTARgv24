@@ -56,7 +56,7 @@ namespace ShopTARgv24.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileToDatabases");
+                    b.ToTable("FileToDatabase");
                 });
 
             modelBuilder.Entity("ShopTARgv24.Core.Domain.RealEstate", b =>

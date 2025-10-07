@@ -115,7 +115,7 @@ namespace ShopTARgv24.ApplicationServices.Services
                         file.CopyTo(target);
                         files.ImageData = target.ToArray();
 
-                        _context.FileToDatabases.Add(files);
+                        _context.FileToDatabase.Add(files);
                     }
                 }
             }

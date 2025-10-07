@@ -12,7 +12,7 @@ namespace ShopTARgv24.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "FileToDatabases",
+                name: "FileToDatabase",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -22,7 +22,7 @@ namespace ShopTARgv24.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FileToDatabases", x => x.Id);
+                    table.PrimaryKey("PK_FileToDatabase", x => x.Id);
                 });
         }
 
@@ -30,7 +30,7 @@ namespace ShopTARgv24.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FileToDatabases");
+                name: "FileToDatabase");
         }
     }
 }

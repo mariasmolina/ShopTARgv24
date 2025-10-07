@@ -12,7 +12,7 @@ using ShopTARgv24.Data;
 namespace ShopTARgv24.Data.Migrations
 {
     [DbContext(typeof(ShopTARgv24Context))]
-    [Migration("20251006142835_FileDatabase")]
+    [Migration("20251007145147_FileDatabase")]
     partial class FileDatabase
     {
         /// <inheritdoc />
@@ -59,7 +59,7 @@ namespace ShopTARgv24.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileToDatabases");
+                    b.ToTable("FileToDatabase");
                 });
 
             modelBuilder.Entity("ShopTARgv24.Core.Domain.RealEstate", b =>
