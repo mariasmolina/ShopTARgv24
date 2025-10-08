@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopTARgv24.ApplicationServices.Services;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
@@ -174,6 +175,8 @@ namespace ShopTARgv24.Controllers
                 return NotFound();
             }
 
+            KindergartenImageViewModel[] images = await FilesFromDatabase(id);
+
             var vm = new KindergartenDetailsViewModel();
 
             vm.Id = kindergarten.Id;
@@ -183,8 +186,26 @@ namespace ShopTARgv24.Controllers
             vm.TeacherName = kindergarten.TeacherName;
             vm.CreatedAt = kindergarten.CreatedAt;
             vm.UpdatedAt = kindergarten.UpdatedAt;
+            vm.Image.AddRange(images);
 
             return View(vm);
+        }
+
+        // Meetod piltide toomiseks andmebaasist
+        public async Task<KindergartenImageViewModel[]> FilesFromDatabase(Guid id)
+        {
+            var images = await _context.KindergartenFileToDatabase
+                .Where(x => x.KindergartenId == id)
+                .Select(y => new KindergartenImageViewModel
+                {
+                    KindergartenId = y.KindergartenId,
+                    Id = y.Id,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64, {0}", Convert.ToBase64String(y.ImageData))
+                }).ToArrayAsync();
+
+            return images;
         }
     }
 }
