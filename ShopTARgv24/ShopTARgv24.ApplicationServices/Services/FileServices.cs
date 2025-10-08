@@ -3,6 +3,7 @@ using ShopTARgv24.Core.Domain;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
+using System.Xml;
 
 namespace ShopTARgv24.ApplicationServices.Services
 {
@@ -49,6 +50,31 @@ namespace ShopTARgv24.ApplicationServices.Services
                         };
 
                         _context.FileToApis.AddAsync(path);
+                    }
+                }
+            }
+        }
+
+        // Salvestab faile andmebaasi
+        public void UploadFilesToDatabase(KindergartenDto dto, Kindergarten domain)
+        {
+            if (dto.Files != null && dto.Files.Count > 0)
+            {
+                foreach (var file in dto.Files)
+                {
+                    using (var target = new MemoryStream())
+                    {
+                        FileToDatabase files = new FileToDatabase()
+                        {
+                            Id = Guid.NewGuid(),
+                            ImageTitle = file.FileName,
+                            KindergartenId = domain.Id
+                        };
+
+                        file.CopyTo(target);
+                        files.ImageData = target.ToArray();
+
+                        _context.KindergartenFileToDatabase.Add(files);
                     }
                 }
             }
