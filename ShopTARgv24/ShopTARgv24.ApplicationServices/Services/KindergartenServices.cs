@@ -62,6 +62,7 @@ namespace ShopTARgv24.ApplicationServices.Services
             domain.TeacherName = dto.TeacherName;
             domain.CreatedAt = dto.CreatedAt;
             domain.UpdatedAt = DateTime.Now;
+            _fileServices.UploadFilesToDatabase(dto, domain);
 
             _context.Kindergartens.Update(domain);
             await _context.SaveChangesAsync();

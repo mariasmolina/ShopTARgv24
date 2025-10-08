@@ -93,6 +93,8 @@ namespace ShopTARgv24.Controllers
                 return NotFound();
             }
 
+            KindergartenImageViewModel[] images = await FilesFromDatabase(id);
+
             var vm = new KindergartenCreateUpdateViewModel();
 
             vm.Id = kindergarten.Id;
@@ -102,6 +104,7 @@ namespace ShopTARgv24.Controllers
             vm.TeacherName = kindergarten.TeacherName;
             vm.CreatedAt = kindergarten.CreatedAt;
             vm.UpdatedAt = kindergarten.UpdatedAt;
+            vm.Image.AddRange(images);
 
             return View("CreateUpdate", vm);
         }
@@ -117,7 +120,16 @@ namespace ShopTARgv24.Controllers
                 KindergartenName = vm.KindergartenName,
                 TeacherName = vm.TeacherName,
                 CreatedAt = vm.CreatedAt,
-                UpdatedAt = vm.UpdatedAt
+                UpdatedAt = vm.UpdatedAt,
+                Files = vm.Files,
+                Image = vm.Image
+                    .Select(x => new FileToDatabaseDto
+                    {
+                        Id = x.Id,
+                        ImageData = x.ImageData,
+                        ImageTitle = x.ImageTitle,
+                        KindergartenId = x.KindergartenId
+                    }).ToArray()
             };
 
             var result = await _kindergartenServices.Update(dto);
