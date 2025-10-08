@@ -95,7 +95,7 @@ namespace ShopTARgv24.Controllers
                 return NotFound();
             }
 
-            var images = await ShowImages(id);
+            RealEstateImageViewModel[] images = await FilesFromDatabase(id);
 
             var vm = new RealEstateCreateUpdateViewModel();
 
@@ -155,7 +155,7 @@ namespace ShopTARgv24.Controllers
                 return NotFound();
             }
 
-            var images = await ShowImages(id);
+            RealEstateImageViewModel[] images = await FilesFromDatabase(id);
 
             var vm = new RealEstateDeleteViewModel();
 
@@ -192,7 +192,7 @@ namespace ShopTARgv24.Controllers
                 return NotFound();
             }
 
-            var images = await ShowImages(id);
+            RealEstateImageViewModel[] images = await FilesFromDatabase(id);
 
             var vm = new RealEstateDetailsViewModel();
 
