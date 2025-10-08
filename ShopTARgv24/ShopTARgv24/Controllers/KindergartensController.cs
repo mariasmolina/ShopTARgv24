@@ -157,6 +157,8 @@ namespace ShopTARgv24.Controllers
                 return NotFound();
             }
 
+            KindergartenImageViewModel[] images = await FilesFromDatabase(id);
+
             var vm = new KindergartenDeleteViewModel();
 
             vm.Id = kindergarten.Id;
@@ -166,6 +168,7 @@ namespace ShopTARgv24.Controllers
             vm.TeacherName = kindergarten.TeacherName;
             vm.CreatedAt = kindergarten.CreatedAt;
             vm.UpdatedAt = kindergarten.UpdatedAt;
+            vm.Image.AddRange(images);
 
             return View(vm);
         }

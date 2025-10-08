@@ -97,5 +97,22 @@ namespace ShopTARgv24.ApplicationServices.Services
 
             return null;
         }
+
+        // Eemaldab kõik faile andmebaasist
+        public async Task<FileToDatabase> RemoveImagesFromDatabase(FileToDatabaseDto[] dtos)
+        {
+            foreach (var dto in dtos)
+            {
+                var imageId = await _context.KindergartenFileToDatabase
+                    .FirstOrDefaultAsync(x => x.Id == dto.Id);
+
+                if (imageId != null)
+                {
+                    _context.KindergartenFileToDatabase.Remove(imageId);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            return null;
+        }
     }
 }
