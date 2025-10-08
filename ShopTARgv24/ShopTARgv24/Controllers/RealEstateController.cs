@@ -68,7 +68,7 @@ namespace ShopTARgv24.Controllers
                 Image = vm.Image
                     .Select(x => new FileToDatabaseDto
                     {
-                        Id = x.Id,
+                        Id = x.ImageId,
                         ImageData = x.ImageData,
                         ImageTitle = x.ImageTitle,
                         RealEstateId = x.RealEstateId
@@ -127,7 +127,7 @@ namespace ShopTARgv24.Controllers
                 Image = vm.Image
                     .Select(x => new FileToDatabaseDto
                     {
-                        Id = x.Id,
+                        Id = x.ImageId,
                         ImageData = x.ImageData,
                         ImageTitle = x.ImageTitle,
                         RealEstateId = x.RealEstateId
@@ -215,7 +215,7 @@ namespace ShopTARgv24.Controllers
                 .Select(y => new RealEstateImageViewModel
                 {
                     RealEstateId = y.RealEstateId,
-                    Id = y.Id,
+                    ImageId = y.Id,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
                     Image = string.Format("data:image/gif;base64, {0}", Convert.ToBase64String(y.ImageData))
