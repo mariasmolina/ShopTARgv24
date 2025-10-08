@@ -14,15 +14,19 @@ namespace ShopTARgv24.Controllers
     {
         private readonly ShopTARgv24Context _context;
         private readonly IKindergartenServices _kindergartenServices;
+        private readonly IFileServices _fileServices;
 
         public KindergartensController
             (
                 ShopTARgv24Context context,
-                IKindergartenServices kindergartenServices
+                IKindergartenServices kindergartenServices,
+                IFileServices fileServices
+
             )
         {
             _context = context;
             _kindergartenServices = kindergartenServices;
+            _fileServices = fileServices;
         }
 
         public IActionResult Index()
@@ -66,7 +70,7 @@ namespace ShopTARgv24.Controllers
                 Image = vm.Image
                     .Select(x => new FileToDatabaseDto
                     {
-                        Id = x.Id,
+                        Id = x.ImageId,
                         ImageData = x.ImageData,
                         ImageTitle = x.ImageTitle,
                         KindergartenId = x.KindergartenId,
@@ -125,7 +129,7 @@ namespace ShopTARgv24.Controllers
                 Image = vm.Image
                     .Select(x => new FileToDatabaseDto
                     {
-                        Id = x.Id,
+                        Id = x.ImageId,
                         ImageData = x.ImageData,
                         ImageTitle = x.ImageTitle,
                         KindergartenId = x.KindergartenId
@@ -211,13 +215,32 @@ namespace ShopTARgv24.Controllers
                 .Select(y => new KindergartenImageViewModel
                 {
                     KindergartenId = y.KindergartenId,
-                    Id = y.Id,
+                    ImageId = y.Id,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
                     Image = string.Format("data:image/gif;base64, {0}", Convert.ToBase64String(y.ImageData))
                 }).ToArrayAsync();
 
             return images;
+        }
+
+        // Meetod ühe pilte eemaldamiseks andmebaasist
+        [HttpPost]
+        public async Task<IActionResult> RemoveImage(KindergartenImageViewModel vm)
+        {
+            var dto = new FileToDatabaseDto()
+            {
+                Id = vm.ImageId
+            };
+
+            var image = await _fileServices.RemoveImageFromDatabase(dto);
+
+            if (image == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
