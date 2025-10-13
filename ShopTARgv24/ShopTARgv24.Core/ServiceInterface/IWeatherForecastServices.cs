@@ -1,6 +1,9 @@
-﻿namespace ShopTARgv24.Core.ServiceInterface
+﻿using ShopTARgv24.Core.Dto;
+
+namespace ShopTARgv24.Core.ServiceInterface
 {
-    public class IWeatherForecastServices
+    public interface IWeatherForecastServices
     {
+        Task<AccuLocationWeatherResultDto> AccuWeatherResult(AccuLocationWeatherResultDto dto);
     }
 }
