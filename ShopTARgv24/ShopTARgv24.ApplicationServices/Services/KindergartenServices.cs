@@ -75,7 +75,7 @@ namespace ShopTARgv24.ApplicationServices.Services
             var kindergarten = await _context.Kindergartens
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            var images = await _context.KindergartenFileToDatabase
+            var images = await _context.FileToDatabase
                 .Where(x => x.KindergartenId == id)
                 .Select(y => new FileToDatabaseDto
                 {

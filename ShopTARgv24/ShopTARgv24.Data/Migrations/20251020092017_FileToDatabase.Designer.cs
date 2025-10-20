@@ -12,8 +12,8 @@ using ShopTARgv24.Data;
 namespace ShopTARgv24.Data.Migrations
 {
     [DbContext(typeof(ShopTARgv24Context))]
-    [Migration("20251008004300_KindergartenFileToDatabase")]
-    partial class KindergartenFileToDatabase
+    [Migration("20251020092017_FileToDatabase")]
+    partial class FileToDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,7 @@ namespace ShopTARgv24.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KindergartenFileToDatabase");
+                    b.ToTable("FileToDatabase");
                 });
 
             modelBuilder.Entity("ShopTARgv24.Core.Domain.Kindergarten", b =>

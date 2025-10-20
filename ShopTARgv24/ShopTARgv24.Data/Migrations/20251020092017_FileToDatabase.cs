@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ShopTARgv24.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class KindergartenFileToDatabase : Migration
+    public partial class FileToDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,7 @@ namespace ShopTARgv24.Data.Migrations
                 oldType: "int");
 
             migrationBuilder.CreateTable(
-                name: "KindergartenFileToDatabase",
+                name: "FileToDatabase",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -70,7 +70,7 @@ namespace ShopTARgv24.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_KindergartenFileToDatabase", x => x.Id);
+                    table.PrimaryKey("PK_FileToDatabase", x => x.Id);
                 });
         }
 
@@ -78,7 +78,7 @@ namespace ShopTARgv24.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "KindergartenFileToDatabase");
+                name: "FileToDatabase");
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "UpdatedAt",

@@ -56,7 +56,7 @@ namespace ShopTARgv24.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KindergartenFileToDatabase");
+                    b.ToTable("FileToDatabase");
                 });
 
             modelBuilder.Entity("ShopTARgv24.Core.Domain.Kindergarten", b =>

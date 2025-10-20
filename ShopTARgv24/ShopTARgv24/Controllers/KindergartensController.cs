@@ -213,7 +213,7 @@ namespace ShopTARgv24.Controllers
         // Meetod piltide toomiseks andmebaasist
         public async Task<KindergartenImageViewModel[]> FilesFromDatabase(Guid id)
         {
-            var images = await _context.KindergartenFileToDatabase
+            var images = await _context.FileToDatabase
                 .Where(x => x.KindergartenId == id)
                 .Select(y => new KindergartenImageViewModel
                 {

@@ -75,7 +75,7 @@ namespace ShopTARgv24.ApplicationServices.Services
                         file.CopyTo(target);
                         files.ImageData = target.ToArray();
 
-                        _context.KindergartenFileToDatabase.Add(files);
+                        _context.FileToDatabase.Add(files);
                     }
                 }
             }
@@ -84,12 +84,12 @@ namespace ShopTARgv24.ApplicationServices.Services
         // Eemaldab ühe pildi andmebaasist
         public async Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabaseDto dto)
         {
-            var imageId = await _context.KindergartenFileToDatabase
+            var imageId = await _context.FileToDatabase
                 .FirstOrDefaultAsync(x => x.Id == dto.Id);
 
             if (imageId != null)
             {
-                _context.KindergartenFileToDatabase.Remove(imageId);
+                _context.FileToDatabase.Remove(imageId);
                 await _context.SaveChangesAsync();
 
                 return imageId;
@@ -103,12 +103,12 @@ namespace ShopTARgv24.ApplicationServices.Services
         {
             foreach (var dto in dtos)
             {
-                var imageId = await _context.KindergartenFileToDatabase
+                var imageId = await _context.FileToDatabase
                     .FirstOrDefaultAsync(x => x.Id == dto.Id);
 
                 if (imageId != null)
                 {
-                    _context.KindergartenFileToDatabase.Remove(imageId);
+                    _context.FileToDatabase.Remove(imageId);
                     await _context.SaveChangesAsync();
                 }
             }
