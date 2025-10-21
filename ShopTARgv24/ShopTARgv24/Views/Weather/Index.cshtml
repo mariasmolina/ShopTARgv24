@@ -5,16 +5,16 @@
 <div class="container">
     <form method="post">
         <div class="container">
-            <div class="form-group col-md-offset-3 col-md-5">
+            <div class="form-group col-md-offset-3 col-md-5 m-3">
                 <h2>Search the forecast in a city</h2>
-                <label asp-for="CityName" style="font-family: Arial"></label>
-                <input asp-for="CityName" class="form-control"/>
+                <label asp-for="CityName" class="m-2" style="font-family: Arial"></label>
+                <input asp-for="CityName" class="form-control m-2"/>
                 <span asp-validation-for="CityName" class="text-danger"></span>
             </div>
         </div>
         <div class="container">
              <div class="form-group col-md-offset-3 col-md-5">
-                <button asp-controller="accuWeathers" asp-action="searchCity" class="btn btn primary">Search</button>
+                <button asp-controller="Weather" asp-action="searchCity" class="btn btn-primary m-2">Search</button>
              </div>
         </div>
     </form>

@@ -9,25 +9,25 @@
         public string? LocalizedName { get; set; }
         public string? EnglishName { get; set; }
         public int PrimaryPostalCode { get; set; }
-        public RegionCountryDto? Region { get; set; }
-        public RegionCountryDto? Country { get; set; }
-        public AdministrativeAreaDto? AdministrativeArea { get; set; }
-        public TimeZoneDto? TimeZone { get; set; }
-        public GeoPositionDto? GeoPosition { get; set; }
+        public RegionCountry? Region { get; set; }
+        public RegionCountry? Country { get; set; }
+        public AdministrativeArea? AdministrativeArea { get; set; }
+        public TimeZone? TimeZone { get; set; }
+        public GeoPosition? GeoPosition { get; set; }
         public bool IsAlias { get; set; }
-        public SupplementalAdminAreasDto[]? SupplementalAdminAreas { get; set; }
+        public SupplementalAdminAreas[]? SupplementalAdminAreas { get; set; }
         public string[]? DataSets { get; set; }
 
     }
 
-    public class RegionCountryDto
+    public class RegionCountry
     {
         public string? ID { get; set; }
         public string? LocalizedName { get; set; }
         public string? EnglishName { get; set; }
     }
 
-    public class AdministrativeAreaDto
+    public class AdministrativeArea
     {
         public string? ID { get; set; }
         public string? LocalizedName { get; set; }
@@ -38,7 +38,7 @@
         public string? CountryID { get; set; }
     }
 
-    public class TimeZoneDto
+    public class TimeZone
     {
         public string? Code { get; set; }
         public string? Name { get; set; }
@@ -47,27 +47,27 @@
         public DateTime? NextOffsetChange { get; set; }
     }
 
-    public class GeoPositionDto
+    public class GeoPosition
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public ElevationDto? Elevation { get; set; }
+        public Elevation? Elevation { get; set; }
     }
 
-    public class ElevationDto
+    public class Elevation
     {
-        public ElevationWeatherValueDto? Metric { get; set; }
-        public ElevationWeatherValueDto? Imperial { get; set; }
+        public ElevationWeatherValue? Metric { get; set; }
+        public ElevationWeatherValue? Imperial { get; set; }
     }
 
-    public class ElevationWeatherValueDto
+    public class ElevationWeatherValue
     {
        public int Value { get; set; } 
          public string? Unit { get; set; }
         public int UnitType { get; set; }
     }
 
-    public class SupplementalAdminAreasDto
+    public class SupplementalAdminAreas
     {
         public int Level { get; set; }
         public string? LocalizedName { get; set; }
