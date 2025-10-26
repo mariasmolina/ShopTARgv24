@@ -10,7 +10,7 @@
         public int Severity { get; set; }
         public string Text { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
-        public string EndDate { get; set; }
+        public string? EndDate { get; set; }
         public Int64 EndEpochDate { get; set; }
 
 

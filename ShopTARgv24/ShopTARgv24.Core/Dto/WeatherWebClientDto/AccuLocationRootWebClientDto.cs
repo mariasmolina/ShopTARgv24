@@ -8,90 +8,90 @@ namespace ShopTARgv24.Core.Dto.WeatherWebClientDto
         public int Version { get; set; }
 
         [JsonPropertyName("Key")]
-        public string Key { get; set; }
+        public string? Key { get; set; }
 
         [JsonPropertyName("Type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         [JsonPropertyName("Rank")]
         public int Rank { get; set; }
 
         [JsonPropertyName("LocalizedName")]
-        public string LocalizedName { get; set; }
+        public string? LocalizedName { get; set; }
 
         [JsonPropertyName("EnglishName")]
-        public string EnglishName { get; set; }
+        public string? EnglishName { get; set; }
 
         [JsonPropertyName("PrimaryPostalCode")]
-        public string PrimaryPostalCode { get; set; }
+        public string? PrimaryPostalCode { get; set; }
 
         [JsonPropertyName("Region")]
-        public Region Region { get; set; }
+        public Region? Region { get; set; }
 
         [JsonPropertyName("Country")]
-        public Country Country { get; set; }
+        public Country? Country { get; set; }
 
         [JsonPropertyName("AdministrativeArea")]
-        public AdministrativeArea AdministrativeArea { get; set; }
+        public AdministrativeArea? AdministrativeArea { get; set; }
 
         [JsonPropertyName("TimeZone")]
-        public TimeZone TimeZone { get; set; }
+        public TimeZone? TimeZone { get; set; }
 
         [JsonPropertyName("GeoPosition")]
-        public GeoPosition GeoPosition { get; set; }
+        public GeoPosition? GeoPosition { get; set; }
 
         [JsonPropertyName("IsAlias")]
         public bool IsAlias { get; set; }
 
         [JsonPropertyName("SupplementalAdminAreas")]
-        public List<SupplementalAdminArea> SupplementalAdminAreas { get; set; }
+        public List<SupplementalAdminArea>? SupplementalAdminAreas { get; set; }
 
         [JsonPropertyName("DataSets")]
-        public List<string> DataSets { get; set; }
+        public List<string>? DataSets { get; set; }
     }
     public class AdministrativeArea
     {
         [JsonPropertyName("ID")]
-        public string ID { get; set; }
+        public string? ID { get; set; }
 
         [JsonPropertyName("LocalizedName")]
-        public string LocalizedName { get; set; }
+        public string? LocalizedName { get; set; }
 
         [JsonPropertyName("EnglishName")]
-        public string EnglishName { get; set; }
+        public string? EnglishName { get; set; }
 
         [JsonPropertyName("Level")]
         public int Level { get; set; }
 
         [JsonPropertyName("LocalizedType")]
-        public string LocalizedType { get; set; }
+        public string? LocalizedType { get; set; }
 
         [JsonPropertyName("EnglishType")]
-        public string EnglishType { get; set; }
+        public string? EnglishType { get; set; }
 
         [JsonPropertyName("CountryID")]
-        public string CountryID { get; set; }
+        public string? CountryID { get; set; }
     }
 
     public class Country
     {
         [JsonPropertyName("ID")]
-        public string ID { get; set; }
+        public string? ID { get; set; }
 
         [JsonPropertyName("LocalizedName")]
-        public string LocalizedName { get; set; }
+        public string? LocalizedName { get; set; }
 
         [JsonPropertyName("EnglishName")]
-        public string EnglishName { get; set; }
+        public string? EnglishName { get; set; }
     }
 
     public class Elevation
     {
         [JsonPropertyName("Metric")]
-        public Metric Metric { get; set; }
+        public Metric? Metric { get; set; }
 
         [JsonPropertyName("Imperial")]
-        public Imperial Imperial { get; set; }
+        public Imperial? Imperial { get; set; }
     }
 
     public class GeoPosition
@@ -103,7 +103,7 @@ namespace ShopTARgv24.Core.Dto.WeatherWebClientDto
         public double Longitude { get; set; }
 
         [JsonPropertyName("Elevation")]
-        public Elevation Elevation { get; set; }
+        public Elevation? Elevation { get; set; }
     }
 
     public class Imperial
@@ -112,7 +112,7 @@ namespace ShopTARgv24.Core.Dto.WeatherWebClientDto
         public int Value { get; set; }
 
         [JsonPropertyName("Unit")]
-        public string Unit { get; set; }
+        public string? Unit { get; set; }
 
         [JsonPropertyName("UnitType")]
         public int UnitType { get; set; }
@@ -124,7 +124,7 @@ namespace ShopTARgv24.Core.Dto.WeatherWebClientDto
         public int Value { get; set; }
 
         [JsonPropertyName("Unit")]
-        public string Unit { get; set; }
+        public string? Unit { get; set; }
 
         [JsonPropertyName("UnitType")]
         public int UnitType { get; set; }
@@ -133,13 +133,13 @@ namespace ShopTARgv24.Core.Dto.WeatherWebClientDto
     public class Region
     {
         [JsonPropertyName("ID")]
-        public string ID { get; set; }
+        public string? ID { get; set; }
 
         [JsonPropertyName("LocalizedName")]
-        public string LocalizedName { get; set; }
+        public string? LocalizedName { get; set; }
 
         [JsonPropertyName("EnglishName")]
-        public string EnglishName { get; set; }
+        public string? EnglishName { get; set; }
     }
 
     public class SupplementalAdminArea
@@ -148,19 +148,19 @@ namespace ShopTARgv24.Core.Dto.WeatherWebClientDto
         public int Level { get; set; }
 
         [JsonPropertyName("LocalizedName")]
-        public string LocalizedName { get; set; }
+        public string? LocalizedName { get; set; }
 
         [JsonPropertyName("EnglishName")]
-        public string EnglishName { get; set; }
+        public string? EnglishName { get; set; }
     }
 
     public class TimeZone
     {
         [JsonPropertyName("Code")]
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         [JsonPropertyName("Name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonPropertyName("GmtOffset")]
         public int GmtOffset { get; set; }
