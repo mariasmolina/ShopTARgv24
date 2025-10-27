@@ -21,6 +21,7 @@ namespace ShopTARgv24
             builder.Services.AddScoped<IFileServices, FileServices>();
             builder.Services.AddScoped<IRealEstateServices, RealEstateServices>();
             builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
+            builder.Services.AddScoped<IChuckNorrisServices, ChuckNorrisServices>();
 
             var app = builder.Build();
 
