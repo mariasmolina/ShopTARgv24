@@ -7,9 +7,9 @@ namespace ShopTARgv24.ApplicationServices.Services
 {
     public class CocktailServices : ICocktailServices
     {
-        public async Task<CocktailResultDto> GetRandomCocktailRecipe(CocktailResultDto dto)
+        public async Task<CocktailResultDto> GetCocktailByName(string cocktailName)
         {
-            var url = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+            var url = $"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktailName}";
 
             using (WebClient client = new WebClient())
             {
@@ -20,15 +20,17 @@ namespace ShopTARgv24.ApplicationServices.Services
                 var drink = root?.Drinks?.FirstOrDefault();
                 if (drink != null)
                 {
-                    dto.Id = drink.idDrink;
-                    dto.Name = drink.strDrink;
-                    dto.Category = drink.strCategory;
-                    dto.Glass = drink.strGlass;
-                    dto.Instructions = drink.strInstructions;
-                    dto.ImageUrl = drink.strDrinkThumb;
-
-                    dto.Ingredients = new List<string>();
-                    dto.Measures = new List<string>();
+                    var dto = new CocktailResultDto
+                    {
+                        Id = drink.idDrink,
+                        Name = drink.strDrink,
+                        Category = drink.strCategory,
+                        Glass = drink.strGlass,
+                        Instructions = drink.strInstructions,
+                        ImageUrl = drink.strDrinkThumb,
+                        Ingredients = new List<string>(),
+                        Measures = new List<string>()
+                    };
 
                     for (int i = 1; i <= 15; i++)
                     {
@@ -41,10 +43,12 @@ namespace ShopTARgv24.ApplicationServices.Services
                         if (!string.IsNullOrWhiteSpace(measure) && measure != "null")
                             dto.Measures.Add(measure);
                     }
+
+                    return dto;
                 }
             }
 
-            return dto;
+            return null;
         }
     }
 }

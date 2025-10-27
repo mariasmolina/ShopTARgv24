@@ -1,4 +1,4 @@
-﻿    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopTARgv24.Core.Dto.CocktailDto;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Models.Cocktail;
@@ -20,17 +20,12 @@ namespace ShopTARgv24.Controllers
         }
 
         [HttpPost]
-        public IActionResult SearchCocktail(string cocktailName)
+        public async Task<IActionResult> SearchCocktail(string cocktailName)
         {
-            // You can implement search by name if needed
-            return RedirectToAction(nameof(Recipe));
-        }
+            var dto = await _cocktailServices.GetCocktailByName(cocktailName);
 
-        [HttpGet]
-        public async Task<IActionResult> Recipe()
-        {
-            var dto = new CocktailResultDto();
-            await _cocktailServices.GetRandomCocktailRecipe(dto);
+            if (dto == null)
+                return View("NotFound");
 
             var vm = new CocktailViewModel
             {
@@ -43,7 +38,7 @@ namespace ShopTARgv24.Controllers
                 Measures = dto.Measures
             };
 
-            return View(vm);
+            return View("Recipe", vm);
         }
     }
 }
