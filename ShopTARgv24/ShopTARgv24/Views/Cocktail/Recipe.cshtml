@@ -1,0 +1,33 @@
+@model ShopTARgv24.Models.Cocktail.CocktailViewModel
+
+<div class="container">
+    <h2>Today's Cocktail Recipe:</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
+        </div>
+        <div class="col-md-8">
+            <h3>@Model.Name</h3>
+            <p><strong>Category:</strong> @Model.Category</p>
+            <p><strong>Glass:</strong> @Model.Glass</p>
+            <p><strong>Instructions:</strong> @Model.Instructions</p>
+            <h5>Ingredients:</h5>
+            <ul>
+                @for (int i = 0; i < Model.Ingredients.Count; i++)
+                {
+                    <li>
+                        @Model.Ingredients[i] @if (i < Model.Measures.Count) { <text>- @Model.Measures[i]</text> }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <hr />
+    <div class="d-flex">
+        <form method="post" class="me-2">
+            <button asp-controller="Cocktail" asp-action="SearchCocktail" class="btn btn-primary">Another Cocktail</button>
+        </form>
+        <a asp-controller="Cocktail" asp-action="Index" class="btn btn-secondary">Back to Search</a>
+    </div>
+</div>
