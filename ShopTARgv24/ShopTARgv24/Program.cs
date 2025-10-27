@@ -23,6 +23,8 @@ namespace ShopTARgv24
             builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
             builder.Services.AddScoped<IChuckNorrisServices, ChuckNorrisServices>();
             builder.Services.AddScoped<ICocktailServices, CocktailServices>();
+            //HttpClient for ChuckNorrisServices
+            builder.Services.AddHttpClient<IChuckNorrisServices, ChuckNorrisServices>();
 
             var app = builder.Build();
 
