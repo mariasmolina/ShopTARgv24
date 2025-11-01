@@ -4,6 +4,6 @@ namespace ShopTARgv24.Core.ServiceInterface
 {
     public interface ICocktailServices
     {
-        Task<CocktailResultDto> GetCocktailByName(string cocktailName);
+        Task<CocktailRootDto> GetCocktails(CocktailResultDto dto);
     }
 }

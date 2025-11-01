@@ -21,10 +21,12 @@ namespace ShopTARgv24
             builder.Services.AddScoped<IFileServices, FileServices>();
             builder.Services.AddScoped<IRealEstateServices, RealEstateServices>();
             builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
+            // WebClient for ChuckNorrisServices
             builder.Services.AddScoped<IChuckNorrisServices, ChuckNorrisServices>();
-            builder.Services.AddScoped<ICocktailServices, CocktailServices>();
             //HttpClient for ChuckNorrisServices
             builder.Services.AddHttpClient<IChuckNorrisServices, ChuckNorrisServices>();
+            // HttpClient for CocktailServices
+            builder.Services.AddHttpClient<ICocktailServices, CocktailServices>();
 
             var app = builder.Build();
 
