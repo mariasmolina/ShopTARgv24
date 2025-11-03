@@ -1,61 +1,52 @@
 ﻿@model ShopTARgv24.Models.OpenWeather.OpenWeatherViewModel
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-7 col-lg-6">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-center mb-3">Forecast for the selected city</h2>
-                    <h4 class="text-center text-primary mb-4">@Model.Name</h4>
-                    <hr />
-                    <dl class="row">
-                        <dt class="col-sm-4">
-                            Temperature
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Temp) °C
-                        </dd>
-
-                        <dt class="col-sm-4">
-                            Feels like
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.feels_like) °C
-                        </dd>
-
-                        <dt class="col-sm-4">
-                            Description
-                        </dt>
-                        <dd class="col-sm-8">
-                             @Html.DisplayFor(model => model.Description)
-                        </dd>
-
-                        <dt class="col-sm-4">
-                            Pressure
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Pressure) hPa
-                        </dd>
-
-                        <dt class="col-sm-4">
-                            Humidity
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Humidity) %
-                        </dd>
-
-                        <dt class="col-sm-4">
-                            Wind speed
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Speed) m/s
-                        </dd>
-                    </dl>
-                    <div class="d-flex justify-content-end">
-                        <a asp-controller="openWeather" asp-action="Index" class="btn btn-success">Back to search</a>
-                    </div>
-                </div>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div style="width:100%; max-width:700px;">
+        <div class="w-100 mb-3" style="display:flex; flex-direction:column; align-items:center;">
+            <h2 class="mb-3" style="width:100%; text-align:center; font-family: Arial; font-weight:600; color:#2c3e50; margin-bottom:18px;">
+                Forecast for the selected city
+            </h2>
+            <div class="mb-4 d-flex justify-content-center align-items-center" style="gap:16px;">
+                <span style="color:#3498db; font-size:1.7rem; font-weight:bold; background:#eaf6fb; border-radius:18px; padding:10px 24px; display:flex; align-items:center; gap:12px;">
+                    @Model.Name
+                    <img src="https://openweathermap.org/img/wn/@(Model.Icon).png"
+                         alt="Weather icon"
+                         style="width:35px; height:35px; filter: drop-shadow(0 2px 4px #3498db);" />
+                </span>
             </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center mb-3" style="gap:24px;">
+            <div style="background:#f0f4fa; border-radius:20px; padding:22px 36px; min-width:180px; max-width:240px; box-shadow:0 2px 8px rgba(52,152,219,0.08); text-align:center;">
+                <div style="color:#34495e; font-size:1.18rem; font-weight:600;">Temperature</div>
+                <div style="color:#3498db; font-size:1.6rem; font-weight:700;">@Html.DisplayFor(model => model.Temp) °C</div>
+            </div>
+            <div style="background:#f0f4fa; border-radius:20px; padding:22px 36px; min-width:180px; max-width:240px; box-shadow:0 2px 8px rgba(52,152,219,0.08); text-align:center;">
+                <div style="color:#34495e; font-size:1.18rem; font-weight:600;">Feels like</div>
+                <div style="color:#3498db; font-size:1.6rem; font-weight:700;">@Html.DisplayFor(model => model.feels_like) °C</div>
+            </div>
+            <div style="background:#f0f4fa; border-radius:20px; padding:22px 36px; min-width:180px; max-width:240px; box-shadow:0 2px 8px rgba(52,152,219,0.08); text-align:center;">
+                <div style="color:#34495e; font-size:1.18rem; font-weight:600;">Humidity</div>
+                <div style="color:#3498db; font-size:1.6rem; font-weight:700;">@Html.DisplayFor(model => model.Humidity) <span style="font-weight:700;">%</span></div>
+            </div>
+            <div style="background:#ededed; border-radius:16px; padding:18px 28px; min-width:160px; max-width:220px; box-shadow:0 2px 8px rgba(52,152,219,0.04); text-align:center; margin-bottom:12px;">
+                <div style="color:#34495e; font-size:1.1rem; font-weight:500;">Pressure</div>
+                <div style="color:#3498db; font-size:1.1rem;">@Html.DisplayFor(model => model.Pressure) hPa</div>
+            </div>
+            <div style="background:#ededed; border-radius:16px; padding:18px 28px; min-width:160px; max-width:220px; box-shadow:0 2px 8px rgba(52,152,219,0.04); text-align:center; margin-bottom:12px;">
+                <div style="color:#34495e; font-size:1.1rem; font-weight:500;">Wind speed</div>
+                <div style="color:#3498db; font-size:1.1rem;">@Html.DisplayFor(model => model.Speed) m/s</div>
+            </div>
+            <div style="background:#ededed; border-radius:16px; padding:18px 28px; min-width:160px; max-width:220px; box-shadow:0 2px 8px rgba(52,152,219,0.04); text-align:center; margin-bottom:12px;">
+                <div style="color:#34495e; font-size:1.1rem; font-weight:500;">Description</div>
+                <div style="color:#3498db; font-size:1.1rem;">@Html.DisplayFor(model => model.Description)</div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a asp-controller="openWeather" asp-action="Index"
+               class="btn btn-success"
+               style="border-radius:25px; font-weight:500; background:#27ae60; border:none; min-width:120px;">
+                Back to search
+            </a>
         </div>
     </div>
 </div>
