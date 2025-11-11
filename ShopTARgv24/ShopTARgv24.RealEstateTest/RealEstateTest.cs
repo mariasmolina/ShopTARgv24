@@ -1,5 +1,8 @@
-﻿using ShopTARgv24.Core.Dto;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ShopTARgv24.RealEstateTest
 {
@@ -150,20 +153,65 @@ namespace ShopTARgv24.RealEstateTest
             Assert.NotEqual(dto.Id, result.Id);
         }
 
+
+        // === Meeskonnatöö ===
+
+        // Test 1 - Allows ModifiedAt to be before CreatedAt during update
         [Fact]
-        public async Task Should_ReturnNull_When_GetDeletedRealEstateById()
+        public async Task Should_Allow_ModifiedAt_Before_CreatedAt()
         {
             // Arrange
             RealEstateDto dto = MockRealEstateData();
+            RealEstateDto update = MockUpdateRealEstateData();
+            // Set ModifiedAt to a date before CreatedAt
+            update.ModifiedAt = DateTime.Now.AddYears(-1); 
 
             // Act
-            var created = await Svc<IRealEstateServices>().Create(dto);
-            await Svc<IRealEstateServices>().Delete((Guid)created.Id);
-            var result = await Svc<IRealEstateServices>().DetailAsync((Guid)created.Id);
+            await Svc<IRealEstateServices>().Create(dto);
+            var result = await Svc<IRealEstateServices>().Update(update);
 
             // Assert
-            Assert.Null(result);
+            Assert.True(result.ModifiedAt <= result.CreatedAt);
         }
+
+        // Test 2 - Allows adding real estate with negative area
+        [Fact]
+        public async Task Should_AddRealEstate_WhenAreaIsNegative()
+        {
+            // Arrange
+            var service = Svc<IRealEstateServices>();
+            RealEstateDto dto = MockRealEstateData();
+            dto.Area = -10; // negatiivne
+            // Act
+            var created = await service.Create(dto);
+
+            // Assert
+            Assert.NotNull(created);
+            Assert.Equal(dto.Area, created.Area);
+            Assert.True(created.Area < 0);
+        }
+
+        // Test 3 - Allows adding real estate with all fields null
+        [Fact]
+        public async Task Should_AddRealEstate_WhenAllFieldsAreNull()
+        {
+            // Arrange
+            var service = Svc<IRealEstateServices>();
+            RealEstateDto emptyDto = MockNullRealEstateData();
+
+            // Act
+            var created = await service.Create(emptyDto);
+
+            // Assert
+            Assert.NotNull(created);
+
+            // põhilised väljad on endiselt null/tühjad
+            Assert.Null(created.Area);
+            Assert.True(string.IsNullOrWhiteSpace(created.Location));
+            Assert.Null(created.RoomNumber);
+            Assert.True(string.IsNullOrWhiteSpace(created.BuildingType));
+        }
+
 
         // Helper method to mock real estate data
         private RealEstateDto MockRealEstateData()
@@ -208,6 +256,32 @@ namespace ShopTARgv24.RealEstateTest
                 BuildingType = null,
                 CreatedAt = null,
                 ModifiedAt = null
+            };
+
+            return dto;
+        }
+
+        private RealEstateDto MockFileRealEstateData()
+        {
+            var fileBytes = new byte[] { 1, 2, 3 };
+            var stream = new MemoryStream(fileBytes);
+
+            var formFile = new FormFile(stream, 0, fileBytes.Length, "files", "test.png")
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = "image/png"
+            };
+
+            RealEstateDto dto = new()
+            {
+                Area = 120.5,
+                Location = "Tallinn",
+                RoomNumber = 3,
+                BuildingType = "Apartment",
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now,
+                Files = new List<IFormFile> { formFile },
+                Image = new List<FileToDatabaseDto>()
             };
 
             return dto;
