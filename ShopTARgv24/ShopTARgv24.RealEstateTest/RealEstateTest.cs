@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+﻿using ShopTARgv24.Core.Domain;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using ShopTARgv24.Data;
 
 namespace ShopTARgv24.RealEstateTest
 {
@@ -212,6 +211,54 @@ namespace ShopTARgv24.RealEstateTest
             Assert.True(string.IsNullOrWhiteSpace(created.BuildingType));
         }
 
+        /// We check that after deleting the record, 
+        /// there are no rows left in FileToDatabases with this RealEstateId
+        [Fact]
+        public async Task Should_DeleteRelatedImages_WhenDeleteRealEstate()
+        {
+            // Arrange
+            var dto = new RealEstateDto
+            {
+                Area = 55.0,
+                Location = "Tallinn",
+                RoomNumber = 2,
+                BuildingType = "Apartment",
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now
+            };
+
+            // Act
+            var created = await Svc<IRealEstateServices>().Create(dto);
+            var id = (Guid)created.Id;
+
+            // Arrange
+            var db = Svc<ShopTARgv24Context>();
+            db.FileToDatabase.Add(new FileToDatabase
+            {
+                Id = Guid.NewGuid(),
+                RealEstateId = id,
+                ImageTitle = "kitchen.jpg",
+                ImageData = new byte[] { 1, 2, 3 }
+            });
+            db.FileToDatabase.Add(new FileToDatabase
+            {
+                Id = Guid.NewGuid(),
+                RealEstateId = id,
+                ImageTitle = "livingroom.jpg",
+                ImageData = new byte[] { 4, 5, 6 }
+            });
+
+            // Act
+            await db.SaveChangesAsync();
+            await Svc<IRealEstateServices>().Delete(id);
+
+            // Assert
+            var leftovers = db.FileToDatabase.Where(x => x.RealEstateId == id).ToList();
+
+            Assert.Empty(leftovers);
+        }
+
+
 
         // Helper method to mock real estate data
         private RealEstateDto MockRealEstateData()
@@ -256,32 +303,6 @@ namespace ShopTARgv24.RealEstateTest
                 BuildingType = null,
                 CreatedAt = null,
                 ModifiedAt = null
-            };
-
-            return dto;
-        }
-
-        private RealEstateDto MockFileRealEstateData()
-        {
-            var fileBytes = new byte[] { 1, 2, 3 };
-            var stream = new MemoryStream(fileBytes);
-
-            var formFile = new FormFile(stream, 0, fileBytes.Length, "files", "test.png")
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = "image/png"
-            };
-
-            RealEstateDto dto = new()
-            {
-                Area = 120.5,
-                Location = "Tallinn",
-                RoomNumber = 3,
-                BuildingType = "Apartment",
-                CreatedAt = DateTime.Now,
-                ModifiedAt = DateTime.Now,
-                Files = new List<IFormFile> { formFile },
-                Image = new List<FileToDatabaseDto>()
             };
 
             return dto;
