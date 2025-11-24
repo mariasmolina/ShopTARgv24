@@ -4,8 +4,6 @@ using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
 using ShopTARgv24.Models.RealEstate;
-using ShopTARgv24.Models.Spaceships;
-using System.Collections.Generic;
 
 namespace ShopTARgv24.Controllers
 {
@@ -92,7 +90,7 @@ namespace ShopTARgv24.Controllers
 
             if (realestate == null)
             {
-                return NotFound();
+                return View("NotFound", id);
             }
 
             RealEstateImageViewModel[] images = await FilesFromDatabase(id);
@@ -152,7 +150,7 @@ namespace ShopTARgv24.Controllers
 
             if (realestate == null)
             {
-                return NotFound();
+                return View("NotFound", id);
             }
 
             RealEstateImageViewModel[] images = await FilesFromDatabase(id);
@@ -178,7 +176,7 @@ namespace ShopTARgv24.Controllers
             if (realestate != null)
                 return RedirectToAction(nameof(Index));
 
-            return NotFound();
+            return View("NotFound", id);
         }
 
         // Details
@@ -189,7 +187,7 @@ namespace ShopTARgv24.Controllers
 
             if (realestate == null)
             {
-                return NotFound();
+                return View("NotFound", id);
             }
 
             RealEstateImageViewModel[] images = await FilesFromDatabase(id);
