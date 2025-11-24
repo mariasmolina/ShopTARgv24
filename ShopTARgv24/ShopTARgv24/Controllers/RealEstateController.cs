@@ -231,5 +231,26 @@ namespace ShopTARgv24.Controllers
 
             return images;
         }
+
+        // Meetod ühe pilte eemaldamiseks andmebaasist
+        [HttpPost]
+        public async Task<IActionResult> RemoveImage(RealEstateImageViewModel vm)
+        {
+            var dto = new FileToDatabaseDto()
+            {
+                Id = vm.ImageId
+            };
+
+            var image = await _fileServices.RemoveImageFromDatabase(dto);
+
+            var realEstateId = image.RealEstateId;
+
+            if (image == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Update), new { id = realEstateId });
+        }
     }
 }

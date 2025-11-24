@@ -4,6 +4,7 @@ using ShopTARgv24.Core.Domain;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ShopTARgv24.ApplicationServices.Services
 {
@@ -135,6 +136,19 @@ namespace ShopTARgv24.ApplicationServices.Services
                 }
             }
             return null;
+        }
+
+        // Eemaldab ühe pildi andmebaasist
+        public async Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabaseDto dto)
+        {
+            var image = await _context.FileToDatabase
+                .Where(x => x.Id == dto.Id)
+                .FirstOrDefaultAsync();
+
+            _context.FileToDatabase.Remove(image);
+            await _context.SaveChangesAsync();
+
+            return image;
         }
     }
 }
