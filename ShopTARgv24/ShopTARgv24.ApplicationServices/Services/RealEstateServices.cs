@@ -63,7 +63,10 @@ namespace ShopTARgv24.ApplicationServices.Services
             domain.BuildingType = dto.BuildingType;
             domain.CreatedAt = dto.CreatedAt;
             domain.ModifiedAt = DateTime.Now;
-            _fileServices.UploadFilesToDatabase(dto, domain);
+            if (dto.Files != null)
+            {
+                _fileServices.UploadFilesToDatabase(dto, domain);
+            }
 
             _context.RealEstate.Update(domain);
             await _context.SaveChangesAsync();

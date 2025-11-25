@@ -78,13 +78,14 @@ namespace ShopTARgv24.Controllers
                     }).ToArray()
             };
             var result = await _realestateServices.Create(dto);
+            var realEstateId = result.Id;
 
             if (result == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Update), new { id = realEstateId });
         }
 
         //Update
@@ -143,13 +144,14 @@ namespace ShopTARgv24.Controllers
             };
 
             var result = await _realestateServices.Update(dto);
+            var realEstateId = result.Id;
 
             if (result == null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index), vm);
+            return RedirectToAction(nameof(Update), new { id = realEstateId });
         }
 
         // Delete
