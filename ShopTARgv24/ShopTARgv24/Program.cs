@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.ApplicationServices.Services;
 using ShopTARgv24.Data;
+using ShopTARgv24.Hubs;
 
 namespace ShopTARgv24
 {
@@ -31,6 +32,9 @@ namespace ShopTARgv24
 
             builder.Services.AddScoped<IEmailServices, EmailServices>();
 
+            // SignalR chat
+            builder.Services.AddSignalR();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -53,6 +57,9 @@ namespace ShopTARgv24
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+            app.MapHub<UserHub>("/hubs/userCount");
+            app.MapHub<ChatHub>("/hubs/chat");
 
             app.Run();
         }

@@ -27,4 +27,8 @@
     <ProjectReference Include="..\ShopTARgv24.Data\ShopTARgv24.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\microsoft\signalr\dist\browser\" />
+  </ItemGroup>
+
 </Project>
