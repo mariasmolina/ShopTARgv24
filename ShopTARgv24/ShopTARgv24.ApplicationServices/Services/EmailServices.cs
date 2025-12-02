@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MailKit.Security;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using ShopTARgv24.Core.Dto;
+using ShopTARgv24.Core.ServiceInterface;
 
 namespace ShopTARgv24.ApplicationServices.Services
 {
-    public class EmailServices
+    public class EmailServices : IEmailServices
     {
         private readonly IConfiguration _config;
 
@@ -24,21 +26,27 @@ namespace ShopTARgv24.ApplicationServices.Services
             {
                 HtmlBody = dto.Body
             };
-            
-            // vaja teha foreach, kus saab lisafa mitu faili
-            // vaja kasutada kontrolli, kus kui faili pole, siis ei lisa
-            if (dto.Attachment != null)
+
+            foreach (var file in dto.Attachment)
             {
-                foreach (var file in dto.Attachment)
+                if (file.Length > 0)
                 {
-                    using var target = new MemoryStream();
-                    file.CopyTo(target);
-                    var fileBytes = target.ToArray();
-                    builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
+                    using (var stream = new MemoryStream())
+                    {
+                        file.CopyTo(stream);
+                        stream.Position = 0;
+                        builder.Attachments.Add(file.FileName, stream.ToArray());
+                    }
                 }
             }
-
             email.Body = builder.ToMessageBody();
+
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+
+            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate(_config.GetSection("EmailUserName").Value, _config.GetSection("EmailPassword").Value);
+            smtp.Send(email);
+            smtp.Disconnect(true);
         }
     }
 }

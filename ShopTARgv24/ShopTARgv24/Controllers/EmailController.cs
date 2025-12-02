@@ -1,0 +1,37 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using ShopTARgv24.Core.ServiceInterface;
+using ShopTARgv24.Models.Email;
+
+namespace ShopTARgv24.Controllers
+{
+    public class EmailController : Controller
+    {
+        private readonly IEmailServices _emailService;
+
+        public EmailController(IEmailServices emailService)
+        {
+            _emailService = emailService;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendEmail(EmailViewModel vm)
+        {
+            var files = Request.Form.Files.Any() ? Request.Form.Files.ToList() : new List<IFormFile>();
+
+            var dto = new Core.Dto.EmailDto
+            {
+                To = vm.To,
+                Subject = vm.Subject,
+                Body = vm.Body,
+                Attachment = files,
+            };
+            _emailService.SendEmail(dto);
+            return RedirectToAction(nameof(Index));
+        }
+    }
+}

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.ApplicationServices.Services;
 using ShopTARgv24.Data;
+
 namespace ShopTARgv24
 {
     public class Program
@@ -27,6 +28,8 @@ namespace ShopTARgv24
             builder.Services.AddHttpClient<IChuckNorrisServices, ChuckNorrisServices>();
             // HttpClient for CocktailServices
             builder.Services.AddHttpClient<ICocktailServices, CocktailServices>();
+
+            builder.Services.AddScoped<IEmailServices, EmailServices>();
 
             var app = builder.Build();
 

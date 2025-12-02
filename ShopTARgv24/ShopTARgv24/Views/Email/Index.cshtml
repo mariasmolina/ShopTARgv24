@@ -1,0 +1,28 @@
+﻿@model ShopTARgv24.Models.Email.EmailViewModel
+
+<div class="container py-5">
+    <h3 class="mb-4 text-center text-primary">Send Email</h3>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <form asp-action="SendEmail" enctype="multipart/form-data" class="bg-light p-4 rounded shadow-sm">
+                <div class="mb-3">
+                    <label asp-for="To" class="form-label"></label>
+                    <input asp-for="To" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Subject" class="form-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Body" class="form-label"></label>
+                    <textarea asp-for="Body" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Attachment" class="form-label"></label>
+                    <input asp-for="Attachment" type="file" class="form-control" multiple />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Send Email</button>
+            </form>
+        </div>
+    </div>
+</div>
