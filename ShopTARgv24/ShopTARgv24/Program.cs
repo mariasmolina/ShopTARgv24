@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ShopTARgv24.Core.ServiceInterface;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ShopTARgv24.ApplicationServices.Services;
+using ShopTARgv24.Core.Domain;
+using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
 using ShopTARgv24.Hubs;
 
@@ -34,6 +37,15 @@ namespace ShopTARgv24
 
             // SignalR chat
             builder.Services.AddSignalR();
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+            })
+               .AddEntityFrameworkStores<ShopTARgv24Context>()
+               .AddDefaultTokenProviders()
+               .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("CustomEmailConfirmation");
+            //.AddDefaultUI();
 
             var app = builder.Build();
 
