@@ -10,6 +10,7 @@ using System.Diagnostics;
 
 namespace ShopTARgv24.Controllers
 {
+    [AllowAnonymous]
     public class AccountsController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
