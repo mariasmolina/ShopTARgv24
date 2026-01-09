@@ -42,29 +42,21 @@ namespace ShopTARgv24
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
+                options.SignIn.RequireConfirmedAccount = true;
                 options.Password.RequiredLength = 6;
+
+                options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
             })
                .AddEntityFrameworkStores<ShopTARgv24Context>()
                .AddDefaultTokenProviders()
                .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("CustomEmailConfirmation");
             //.AddDefaultUI();
 
-            builder.Services.AddControllersWithViews(options =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-
-                options.Filters.Add(new AuthorizeFilter(policy));
-            });
-
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Accounts/Login";
-                options.AccessDeniedPath = "/Accounts/Login";
-            });
-
             var app = builder.Build();
+
+            app.MapControllers().RequireAuthorization();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
