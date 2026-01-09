@@ -151,8 +151,8 @@ namespace ShopTARgv24.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                
-                if (user != null && !user.EmailConfirmed && 
+
+                if (user != null && !user.EmailConfirmed &&
                     (await _userManager.CheckPasswordAsync(user, model.Password)))
                 {
                     ModelState.AddModelError(string.Empty, "Email not confirmed yet");
@@ -206,13 +206,13 @@ namespace ShopTARgv24.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                
+
                 if (user == null)
                 {
                     return RedirectToAction("Login");
                 }
                 var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                
+
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -263,6 +263,50 @@ namespace ShopTARgv24.Controllers
                 return View("ForgotPasswordConfirmation");
             }
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string email, string token)
+        {
+            if (token == null || email == null)
+            {
+                ModelState.AddModelError("", "Invalid password reset token");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
+                {
+                    var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        if (await _userManager.IsLockedOutAsync(user))
+                        {
+                            await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
+                        }
+                        return View("ResetPasswordConfirmation");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View(model);
+                }
+                return View("ResetPasswordConfirmation");
+            }
+            return View(model);
+
         }
     }
 }
