@@ -418,3 +418,6 @@ FodyWeavers.xsd
 *.msp
 ShopTARgv24/ShopTARgv24/wwwroot/lib/microsoft/
 ShopTARgv24/ShopTARgv24/libman.json
+ShopTARgv24/ShopTARgv24/appsettings.json
+
+
