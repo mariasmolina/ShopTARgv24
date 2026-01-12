@@ -11,7 +11,6 @@ using System.Security.Claims;
 
 namespace ShopTARgv24.Controllers
 {
-    [AllowAnonymous]
     public class AccountsController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -30,6 +29,7 @@ namespace ShopTARgv24.Controllers
             _emailServices = emailServices;
         }
 
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
