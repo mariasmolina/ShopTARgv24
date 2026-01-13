@@ -1,0 +1,12 @@
+﻿using ReactCRUD.Core.Domain;
+using Microsoft.EntityFrameworkCore;
+
+namespace ReactCRUD.Data
+{
+    public class ReactCRUDContext : DbContext
+    {
+        public ReactCRUDContext(DbContextOptions<ReactCRUDContext> options) 
+            : base(options) { }
+        public DbSet<School>? Schools { get; set; }
+    }
+}
